@@ -4,18 +4,7 @@
   * @file           : main.c
   * @brief          : Application entry point
   ******************************************************************************
-  * Pins in use (from main.h):
-  *  - motor_Pin         PE9   -> TIM1_CH1  (PWM, motor enable)
-  *  - motor_IN1_Pin     PB12  -> GPIO out  (direction)
-  *  - motor_IN2_Pin     PB13  -> GPIO out  (direction)
-  *  - servo_Pin         PD15  -> TIM4_CH4  (PWM, 50 Hz)
-  *
-  * Serial protocol (HC-05 over USART3, 9600 8N1), newline-terminated:
-  *   "M <VL> <VR> S <A>\n"
-  *   Example: "M 60 60 S 0"   (right value ignored here since we have 1 motor)
-  *
-  * Motor speed: -100..100 (sign = direction). Servo angle: -60..60 deg.
-  ******************************************************************************
+
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
@@ -33,15 +22,15 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-// USART for HC-05
+
 #define BT_UART                 USART2
 #define MON_UART  USART3
 #define BT_BAUD                 9600
-#define MON_BAUD  115200     // PC-monitor
+#define MON_BAUD  115200     
 
-// Timer channels (match to pin AFs)
-#define MOTOR_TIM_CH            TIM_CHANNEL_1   // PE9 -> TIM1_CH1 (AF1)
-#define SERVO_TIM_CH            TIM_CHANNEL_4   // PD15 -> TIM4_CH4 (AF2)
+
+#define MOTOR_TIM_CH            TIM_CHANNEL_1   // PE9 -> TIM1_CH1 
+#define SERVO_TIM_CH            TIM_CHANNEL_4   // PD15 -> TIM4_CH4 
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -82,18 +71,18 @@ static void servo_write_deg(int deg);       // about -60..60
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-// Motor PWM: 20 kHz @ TIM1
-// We'll configure TIM1: PSC=15 (-> 1 MHz), ARR=49 => 20 kHz
+
+
 static inline uint32_t tim_arr(const TIM_HandleTypeDef* h){
   return __HAL_TIM_GET_AUTORELOAD((TIM_HandleTypeDef*)h);
 }
 
-static void pwm_set(TIM_HandleTypeDef* htim, uint32_t ch, uint32_t duty /*0..ARR*/){
+static void pwm_set(TIM_HandleTypeDef* htim, uint32_t ch, uint32_t duty ){
   if(duty > tim_arr(htim)) duty = tim_arr(htim);
   __HAL_TIM_SET_COMPARE(htim, ch, duty);
 }
 
-static void motor_drive(int spd_percent) { // -100..100
+static void motor_drive(int spd_percent) { 
   spd_percent = CLAMP(spd_percent, -100, 100);
 
   if (spd_percent >= 0) {
@@ -109,12 +98,11 @@ static void motor_drive(int spd_percent) { // -100..100
   }
 }
 
-// Servo: 50 Hz @ TIM4 with PSC=159, ARR=1999 (base 100 kHz -> 20 ms)
-// 1 ms -> CCR=100, 1.5 ms -> 150, 2.0 ms -> 200
-static void servo_write_deg(int deg) { // about -60..60
+/
+static void servo_write_deg(int deg) {
   deg = CLAMP(deg, -60, 60);
-  int us = 1500 + (deg * 500) / 60; // map to 1000..2000 us
-  int ccr = us; // 10 us per count at 100 kHz
+  int us = 1500 + (deg * 500) / 60; 
+  int ccr = us; // 
   pwm_set(&htim4, SERVO_TIM_CH, (uint32_t)ccr);
 }
 
@@ -127,14 +115,13 @@ static void start_io(void){
   HAL_UART_Receive_IT(&huart2, &rx_ch, 1);
 }
 
-// Simple line-based parser: "M <VL> <VR> S <A>"
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
   if (huart->Instance == BT_UART) {
     if (rx_ch == '\n' || rx_ch == '\r') {
       linebuf[linepos] = 0;
       int vl=40, vr=40, a=40;
       if (sscanf(linebuf, "M %d %d S %d", &vl, &vr, &a) == 3) {
-        (void)vr;              // one motor for now
+        (void)vr;             
         motor_drive(vl);
         servo_write_deg(a);
       }
@@ -143,7 +130,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
       if (linepos < (int)sizeof(linebuf) - 1) {
         linebuf[linepos++] = (char)rx_ch;
       } else {
-        linepos = 0; // overflow -> reset
+        linepos = 0; 
       }
     }
     HAL_UART_Receive_IT(&huart2, &rx_ch, 1);
