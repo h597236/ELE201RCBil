@@ -47,7 +47,8 @@ def apply_expo(v, expo):
     return (1.0 - expo) * v + expo * (v ** 3)
 
 def map_stick_to_steer(stick_x):
-    v = apply_deadzone(stick_x, DZ_STEER)
+    v = -stick_x  
+    v = apply_deadzone(v, DZ_STEER)
     v = apply_expo(v, EXPO_STEER)
     return int(round(v * MAX_STEER))
 
