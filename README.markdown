@@ -15,7 +15,7 @@
 ### Objective
 Develop a **remote-controlled car** using a **PS4 controller**, a **Python interface**, and an **STM32F767** microcontroller.  
 The PS4 controller connects to a PC via Bluetooth, and the PC sends UART commands through an **HC-05** Bluetooth module to the STM32.  
-The STM32 then controls two DC motors and one servo using an **L293D H-bridge**.
+The STM32 then controls one servo via PWM and two DC motors using an **L293D H-bridge**.
 
 ### Features
 - Wireless control using a PS4 controller  
