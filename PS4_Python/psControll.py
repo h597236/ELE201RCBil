@@ -16,12 +16,12 @@ BAUD = 9600
 SEND_HZ = 20       
 
 MAX_SPEED = 100     
-MAX_STEER = 30      
+MAX_STEER = 50      
 
 DZ_STEER = 0.06     
 EXPO_STEER = 0.25
 
-#
+
 SLEW_SPEED_UP   = 180.0
 SLEW_SPEED_DOWN = 250.0
 SLEW_STEER      = 600.0
@@ -30,7 +30,7 @@ SLOW_MODE_FACTOR = 0.50
 
 
 BTN_PANIC = 0  
-BTN_SLOW  = 1  #
+BTN_SLOW  = 1  
 
 
 def trig01(v):

@@ -98,7 +98,7 @@ static void motor_drive(int spd_percent) {
   }
 }
 
-/
+
 static void servo_write_deg(int deg) {
   deg = CLAMP(deg, -60, 60);
   int us = 1500 + (deg * 500) / 60; 
