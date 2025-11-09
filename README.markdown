@@ -51,8 +51,8 @@ M <leftSpeed> <rightSpeed> S <servoAngle>
 ### Pin Configuration
 | Signal | MCU Pin | Function |
 |---------|----------|-----------|
-| UART_TX | PD8 | USART3_TX |
-| UART_RX | PD9 | USART3_RX |
+| UART_TX | PD6 | USART3_TX |
+| UART_RX | PD5 | USART3_RX |
 | Bluetooth VCC | 5V | Power |
 | Bluetooth GND | GND | Ground |
 
@@ -67,20 +67,20 @@ A **Micro Servo (FS90)** handles front-wheel steering via a PWM output from the 
 ### Pin Configuration
 | Component | MCU Pin | Function |
 |------------|----------|-----------|
-| Left Motor | PB0, PB1 | Direction + PWM |
-| Right Motor | PB4, PB5 | Direction + PWM |
-| Servo | PA6 | TIM3_CH1 (PWM Output) |
+| Motor Enable | PE9 | TIM4_CH1 (PWM Output) |
+| Motor Direction | PB12, PB13 | Direction |
+| Motor Output | L293D_Out_3/6 | Motor Output from L293D |
+| Servo | PD15 | TIM4_CH1 (PWM Output) |
 
 ### Circuit Diagram
 ```
                 STM32F767
              ┌───────────────────┐
-  HC-05_TX ─┤ PD9 (USART3_RX)    │
-  HC-05_RX ─┤ PD8 (USART3_TX)    │
-  L293D_IN1 ─┤ PB0                │
-  L293D_IN2 ─┤ PB1                │
-  L293D_IN3 ─┤ PB4                │
-  L293D_IN4 ─┤ PB5                │
+  HC-05_TX  ─┤ PD6 (USART3_RX)    │
+  HC-05_RX  ─┤ PD5 (USART3_TX)    │
+  L293D_IN1 ─┤ PE9                │
+  L293D_IN2 ─┤ PB12               │
+  L293D_IN6 ─┤ PB13               │
   SERVO ─────┤ PA6 (PWM)          │
              └───────────────────┘
 ```
@@ -127,9 +127,3 @@ System operated successfully — the car could be driven wirelessly using a PS4 
 
 ## Demo Video
 [![RC Car Demo](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://github.com/h597236/ELE201RCBil)
-
----
-
-### Repository
-Full source code and documentation available at:  
-👉 [https://github.com/h597236/ELE201RCBil](https://github.com/h597236/ELE201RCBil)
