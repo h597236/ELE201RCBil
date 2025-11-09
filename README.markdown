@@ -126,4 +126,4 @@ System operated successfully — the car could be driven wirelessly using a PS4 
 ---
 
 ## Demo Video
-[![RC Car Demo](https://img.youtube.com/vi/RwyVuzv6o0o/0.jpg)](https://www.youtube.com/shorts/RwyVuzv6o0oa)
+[![RC Car Demo](https://img.youtube.com/vi/RwyVuzv6o0o/0.jpg)](youtube.com/shorts/RwyVuzv6o0o?si=eI0RXEnbgqYyiK8G)
