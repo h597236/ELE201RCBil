@@ -76,12 +76,12 @@ A **Micro Servo (FS90)** handles front-wheel steering via a PWM output from the 
 ```
                 STM32F767
              ┌───────────────────┐
-  HC-05_TX  ─┤ PD6 (USART3_RX)    │
-  HC-05_RX  ─┤ PD5 (USART3_TX)    │
-  L293D_IN1 ─┤ PE9 (PWM)          │
-  L293D_IN2 ─┤ PB12               │
-  L293D_IN6 ─┤ PB13               │
-  SERVO ─────┤ PD15 (PWM)         │
+  HC-05_TX  ─┤ PD6 (USART3_RX)   │
+  HC-05_RX  ─┤ PD5 (USART3_TX)   │
+  L293D_IN1 ─┤ PE9 (PWM)         │
+  L293D_IN2 ─┤ PB12              │
+  L293D_IN6 ─┤ PB13              │
+  SERVO ─────┤ PD15 (PWM)        │
              └───────────────────┘
 ```
 
