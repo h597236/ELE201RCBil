@@ -16,7 +16,7 @@ BAUD = 9600
 SEND_HZ = 20       
 
 MAX_SPEED = 100     
-MAX_STEER = 60      
+MAX_STEER = 30      
 
 DZ_STEER = 0.06     
 EXPO_STEER = 0.25
